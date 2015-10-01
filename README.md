@@ -1,7 +1,3 @@
-# Arduino-bilen
-Första projektet: Linjeföljaren
-Kod:
-
 #include <Adafruit_MotorShield.h>
 #include <lenlib.h> 
 #include <Servo.h> 
@@ -23,40 +19,56 @@ void setup()
 void loop() 
 {
   
-  R0Val  = Sensors.readReflect0(); // Read digital value of reflect sensor 0
-  R1Val  = Sensors.readReflect1(); // Read digital value of reflect sensor 1
-  R2Val  = Sensors.readReflect2(); // Read digital value of reflect sensor 2
+  R0Val  = Sensors.readReflect0(); // Read digital value of reflect sensor 0 Höger
+  R1Val  = Sensors.readReflect1(); // Read digital value of reflect sensor 1 Mitten
+  R2Val  = Sensors.readReflect2(); // Read digital value of reflect sensor 2 Vänster
 
   if(R0Val == 1)
   {
-      Motors.runMotor(1, FORWARD, 0); // Run motor 1 & 2 forward at 0 velocity(Stop)
-      Motors.runMotor(2, FORWARD, 150);
+      Motors.runMotor(1, BACKWARD, 150); // Run motor 1 & 2 forward at 0 velocity(Stop)
+      Motors.runMotor(2, FORWARD, 100);
  }
   else
   {
-      Motors.runMotor(1, FORWARD, 0); // Run motor 1 & 2 forward at 150 velocity
-      Motors.runMotor(2, FORWARD, 0);
+      Motors.runMotor(1, FORWARD, 100); // Run motor 1 & 2 forward at 150 velocity
+      Motors.runMotor(2, FORWARD, 100);
  }
   
   if(R1Val == 1)
   {
-      Motors.runMotor(1, FORWARD, 0); // Run motor 1 & 2 forward at 0 velocity(Stop)
-      Motors.runMotor(2, FORWARD, 150);
+      Motors.runMotor(1, FORWARD, 100); // Run motor 1 & 2 forward at 0 velocity(Stop)
+      Motors.runMotor(2, FORWARD, 100);
  }
   else
   {
-      Motors.runMotor(1, FORWARD, 0); // Run motor 1 & 2 forward at 150 velocity
-      Motors.runMotor(2, FORWARD, 0);
+      Motors.runMotor(1, BACKWARD, 50); // Run motor 1 & 2 forward at 150 velocity
+      Motors.runMotor(2, BACKWARD, 50);
       
   }
   if(R2Val == 1)
   {
-     Motors.runMotor(1, FORWARD, 150); // Run motor 1 & 2 forward at 0 velocity(Stop)
-      Motors.runMotor(2, FORWARD, 0);
+     Motors.runMotor(1, FORWARD, 100); // Run motor 1 & 2 forward at 0 velocity(Stop)
+      Motors.runMotor(2, BACKWARD, 150);
      }
  else
   {
-      Motors.runMotor(1, FORWARD, 0); // Run motor 1 & 2 forward at 150 velocity
-      Motors.runMotor(2, FORWARD, 0);
+      Motors.runMotor(1, FORWARD, 100); // Run motor 1 & 2 forward at 150 velocity
+      Motors.runMotor(2, FORWARD, 100);
+  }
+
+  if(R1Val and R0Val == 1)
+  {
+     Motors.runMotor(1, FORWARD, 100);
+      Motors.runMotor(2, BACKWARD, 150);
+  }
+  if(R1Val and R2Val == 1)
+  {
+     Motors.runMotor(1, BACKWARD, 150);
+      Motors.runMotor(2, FORWARD, 100);
+  }
+   if(R0Val and R1Val and R2Val == 0)
+  {
+     Motors.runMotor(1, BACKWARD, 150);
+      Motors.runMotor(2, BACKWARD, 150);
   }
 }
