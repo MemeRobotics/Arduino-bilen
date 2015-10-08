@@ -4,10 +4,12 @@
 #include <Wire.h> 
 
 int R0Val = 0;
-int valB0 = 0;
-int valB1 = 0;
+int valB0 = 1;
+int valB1 = 1;
 int valIR = 0;
 
+int readButton0();
+int readButton1();
 
 mySensors Sensors; // create Sensors object
 myMotors Motors;  // create Motors object
@@ -22,15 +24,36 @@ void loop()
 {
    valIR = Sensors.readIR0();
 
-  if(valIR <400)
+  if(valIR <300)
   {
-      Motors.runMotor(1, FORWARD, 100); // Run motor 1 & 2 forward at 0 velocity(Stop)
-      Motors.runMotor(2, FORWARD, 100);
+      Motors.runMotor(1, FORWARD, 50); 
+      Motors.runMotor(2, BACKWARD, 50);
   }
   else
   {
-      Motors.runMotor(1, FORWARD, 100); // Run motor 1 & 2 forward at 100 velocity
-      Motors.runMotor(2, BACKWARD, 100);
+      Motors.runMotor(1, FORWARD, 50); 
+      Motors.runMotor(2, FORWARD, 50);
    }
+   if(valB1 == 1 )
+ {
+   Motors.runMotor(1, FORWARD, 50); 
+      Motors.runMotor(2, FORWARD, 50);
+    }
+     else
+  {
+      Motors.runMotor(1, FORWARD, 50); 
+      Motors.runMotor(2, BACKWARD, 50);
+   }
+    if(valB0 == 1 )
+ {
+   Motors.runMotor(1, FORWARD, 50); 
+      Motors.runMotor(2, FORWARD, 50);
+       }
+     else
+  {
+      Motors.runMotor(1, FORWARD, 50); 
+      Motors.runMotor(2, BACKWARD, 50);
+   } 
 }
   
+
