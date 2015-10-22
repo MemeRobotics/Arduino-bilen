@@ -1,0 +1,73 @@
+#include <Adafruit_MotorShield.h>
+#include <lenlib.h> 
+#include <Servo.h> 
+#include <Wire.h> 
+
+int R0Val = 0;
+int valB0 = 1; // Gröna sladdar, Front (böjd sak)
+int valB1 = 1; // Svarta sladdar, Sidopinne
+int valIR = 0;
+
+int readButton0();
+int readButton1();
+
+mySensors Sensors; // create Sensors object
+myMotors Motors;  // create Motors object
+
+void setup() 
+{ 
+  Motors.beginMotors();   // start motors
+  Sensors.beginSensors(); // start sensors
+}
+
+void loop() 
+{
+   valIR = Sensors.readIR0();
+   valB0  = Sensors.readButton0();
+  valB1 = Sensors.readButton1();
+
+  if(valIR <200)
+  {
+      Motors.runMotor(1, BACKWARD, 75); 
+      Motors.runMotor(2, FORWARD, 100);
+  }
+  if(valIR >400)
+  {
+      Motors.runMotor(1, FORWARD, 75); 
+      Motors.runMotor(2, BACKWARD, 75);
+  }
+  if(valIR >200 && valIR <400)
+  {
+      Motors.runMotor(1, FORWARD, 75); 
+      Motors.runMotor(2, FORWARD, 75);
+   }
+   if(valB1 == 0 )
+ {
+   Motors.runMotor(1, BACKWARD, 100); 
+      Motors.runMotor(2, BACKWARD, 100);
+      delay(100);
+        Motors.runMotor(1, BACKWARD, 100); 
+      Motors.runMotor(2, FORWARD, 100);
+      delay(250);
+   }
+    else
+{
+    Motors.runMotor(1, FORWARD, 75); 
+      Motors.runMotor(2, FORWARD, 75);
+  }
+    if(valB0 == 0 )
+ {
+      Motors.runMotor(1, BACKWARD, 100); 
+      Motors.runMotor(2, BACKWARD, 100);
+      delay(100);
+      
+      Motors.runMotor(1, FORWARD, 150); 
+      Motors.runMotor(2, BACKWARD, 100);
+      delay(350);
+   } 
+   else
+{
+    Motors.runMotor(1, FORWARD, 75); 
+      Motors.runMotor(2, FORWARD, 75);
+   }  
+} 
